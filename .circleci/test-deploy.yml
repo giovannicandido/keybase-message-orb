@@ -35,7 +35,7 @@ workflows:
           kb_paperkey: test
           team_name: test
           channel_topic: test
-          only_on_fail: true
+          only_on_fail: false
           message: message
           filters: *filters
       - orb-tools/pack:
