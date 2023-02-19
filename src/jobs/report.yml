@@ -39,18 +39,12 @@ steps:
               CHANNEL_NAME: <<parameters.team_name>>
               CHANNEL_TOPIC: <<parameters.channel_topic>>
             name: Report Build Success
-            command: |
-              sed -e 's/__build_status__/SUCCESS/' -e 's/__theme_color__/14a603/' .ms_teams_message > .keybase_message
-              export MESSAGE=`cat .keybase_message`
-              node /app/out/main.js
+            command: <<include(scripts/send_sucess.sh)>>
             when: on_success
   - run:
       environment:
         CHANNEL_NAME: <<parameters.team_name>>
         CHANNEL_TOPIC: <<parameters.channel_topic>>
       name: Report Build Failure
-      command: |
-        sed -e 's/__build_status__/FAILED/' -e 's/__theme_color__/14a603/' .ms_teams_message > .keybase_message
-        export MESSAGE=`cat .keybase_message`
-        node /app/out/main.js
+      command: <<include(scripts/send_failure.sh)>>
       when: on_fail
