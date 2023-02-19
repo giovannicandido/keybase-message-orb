@@ -5,11 +5,11 @@ description: >
 executor: default
 
 parameters:
-  kb_username:
-    type: string
+  KB_USERNAME:
+    type: env_var_name
     description: "Username of the bot to authenticate"
-  kb_paperkey:
-    type: string
+  KB_PAPERKEY:
+    type: env_var_name
     description: "Paper key to authenticate"
   team_name:
     type: string
@@ -30,8 +30,6 @@ steps:
       steps:
         - run:
             environment:
-              KB_USERNAME: <<parameters.kb_username>>
-              KB_PAPERKEY: <<parameters.kb_paperkey>>
               CHANNEL_NAME: <<parameters.team_name>>
               CHANNEL_TOPIC: <<parameters.channel_topic>>
               MESSAGE: <<parameters.message>>

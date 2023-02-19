@@ -2,11 +2,11 @@ description: >
   This command send a report of the build to keybase
 executor: default
 parameters:
-  kb_username:
-    type: string
+  KB_USERNAME:
+    type: env_var_name
     description: "Username of the bot to authenticate"
-  kb_paperkey:
-    type: string
+  KB_PAPERKEY:
+    type: env_var_name
     description: "Paper key to authenticate"
   team_name:
     type: string
@@ -25,8 +25,6 @@ parameters:
 steps:
   - run:
       environment:
-        KB_USERNAME: <<parameters.kb_username>>
-        KB_PAPERKEY: <<parameters.kb_paperkey>>
         CHANNEL_NAME: <<parameters.team_name>>
         CHANNEL_TOPIC: <<parameters.channel_topic>>
         CUSTOM_MESSAGE: <<parameters.message>>
@@ -38,23 +36,21 @@ steps:
       steps:
         - run:
             environment:
-              KB_USERNAME: <<parameters.kb_username>>
-              KB_PAPERKEY: <<parameters.kb_paperkey>>
               CHANNEL_NAME: <<parameters.team_name>>
               CHANNEL_TOPIC: <<parameters.channel_topic>>
             name: Report Build Success
             command: |
+              sed -e 's/__build_status__/SUCCESS/' -e 's/__theme_color__/14a603/' .ms_teams_message > .keybase_message
               export MESSAGE=`cat .keybase_message`
               node /app/out/main.js
             when: on_success
   - run:
       environment:
-        KB_USERNAME: <<parameters.kb_username>>
-        KB_PAPERKEY: <<parameters.kb_paperkey>>
         CHANNEL_NAME: <<parameters.team_name>>
         CHANNEL_TOPIC: <<parameters.channel_topic>>
       name: Report Build Failure
       command: |
+        sed -e 's/__build_status__/FAILED/' -e 's/__theme_color__/14a603/' .ms_teams_message > .keybase_message
         export MESSAGE=`cat .keybase_message`
         node /app/out/main.js
       when: on_fail
