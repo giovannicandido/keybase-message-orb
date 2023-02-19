@@ -16,7 +16,7 @@ parameters:
         - 2xlarge+
     type: enum
   tag:
-    default: main
+    default: medium
     description: >
       Pick a specific ghcr.io/giovannicandido/kugelbit-message-bot image variant:
       https://github.com/giovannicandido/kugelbit-message-bot/pkgs/container/kugelbit-message-bot
