@@ -16,7 +16,7 @@ parameters:
     description: "Team to send notification"
   channel_topic:
     type: string
-    descrption: "Channel of the team to send notification"
+    description: "Channel of the team to send notification"
   message:
     type: string
     description: "Message to send to the keybase"
