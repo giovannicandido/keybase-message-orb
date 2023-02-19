@@ -34,7 +34,6 @@ workflows:
           only_on_fail: false
           message: "automated deploy test in circleci (please ignore)"
           filters: *filters
-          resource_class: small
           context:
             - Keybase
       - keybase-message-orb/report:
@@ -45,7 +44,6 @@ workflows:
           only_on_fail: false
           message: "automated deploy test in circleci (please ignore)"
           filters: *filters
-          resource_class: small
           context:
             - Keybase
       - orb-tools/pack:
