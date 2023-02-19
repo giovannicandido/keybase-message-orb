@@ -1,5 +1,6 @@
 #!/bin/bash
-echo "The env variable is: ${KB_USERNAME}"
+echo "The env username is is: ${KB_USERNAME}"
+echo "The env paperkey is is: ${KB_PAPERKEY}"
 SHORT_SHA1=$(echo -n "$CIRCLE_SHA1" | head -c 7)
 if [ "$(echo $CIRCLE_REPOSITORY_URL | grep ^git@github.com)" ]; then
     COMMIT_LINK=[$SHORT_SHA1]\(https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/commit/$CIRCLE_SHA1\)
