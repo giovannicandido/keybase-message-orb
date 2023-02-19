@@ -30,7 +30,7 @@ steps:
         CHANNEL_TOPIC: <<parameters.channel_topic>>
         CUSTOM_MESSAGE: <<parameters.message>>
       name: Prepare message
-      command: ./scripts/build_template.sh
+      command: ../scripts/build_template.sh
   - unless:
       condition: << parameters.only_on_fail >>
       steps:
