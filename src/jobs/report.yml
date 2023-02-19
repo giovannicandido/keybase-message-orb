@@ -1,5 +1,6 @@
 description: >
   This command send a report of the build to keybase
+executor: default
 parameters:
   kb_username:
     type: string
@@ -31,7 +32,7 @@ steps:
         CUSTOM_MESSAGE: <<parameters.message>>
       name: Prepare message template
       when: always
-      command: ../scripts/build_template.sh
+      command: <<include(scripts/build_template.sh)>>
   - unless:
       condition: << parameters.only_on_fail >>
       steps:

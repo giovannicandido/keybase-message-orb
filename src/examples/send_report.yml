@@ -10,4 +10,10 @@ usage:
   workflows:
     send-report:
       jobs:
-        - keybase-message/report
+        - keybase-message/report:
+            kb_username: test
+            kb_paperkey: test
+            team_name: test
+            channel_topic: test
+            only_on_fail: false
+            message: message
