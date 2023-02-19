@@ -39,8 +39,6 @@ steps:
             when: on_success
   - run:
       environment:
-        KB_USERNAME: <<parameters.kb_username>>
-        KB_PAPERKEY: <<parameters.kb_paperkey>>
         CHANNEL_NAME: <<parameters.team_name>>
         CHANNEL_TOPIC: <<parameters.channel_topic>>
         MESSAGE: <<parameters.message>>
