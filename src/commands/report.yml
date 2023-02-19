@@ -1,6 +1,5 @@
 description: >
   This command send a report of the build to keybase
-executor: default
 parameters:
   kb_username:
     type: string
