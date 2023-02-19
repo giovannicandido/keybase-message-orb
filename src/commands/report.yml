@@ -1,0 +1,60 @@
+description: >
+  This command send a report of the build to keybase
+executor: default
+parameters:
+  kb_username:
+    type: string
+    description: "Username of the bot to authenticate"
+  kb_paperkey:
+    type: string
+    description: "Paper key to authenticate"
+  team_name:
+    type: string
+    description: "Team to send notification"
+  channel_topic: 
+    type: string
+    descrption: "Channel of the team to send notification"
+  on_fail:
+    type: boolean
+    description: "Whether to send notification only after a failure"
+    default: true
+  message:
+    type: string
+    description: "Message to send to the keybase"
+    default: ""
+steps:
+  - run:
+      environment:
+        KB_USERNAME: <<parameters.kb_username>>
+        KB_PAPERKEY: <<parameters.kb_paperkey>>
+        CHANNEL_NAME: <<parameters.team_name>>
+        CHANNEL_TOPIC: <<parameters.channel_topic>>
+        CUSTOM_MESSAGE: <<parameters.message>>
+      name: Prepare message
+      command: <<include(scripts/build_template.sh)>>
+  - unless:
+      condition: << parameters.only_on_fail >>
+      steps:
+        - run:
+            environment:
+              KB_USERNAME: <<parameters.kb_username>>
+              KB_PAPERKEY: <<parameters.kb_paperkey>>
+              CHANNEL_NAME: <<parameters.team_name>>
+              CHANNEL_TOPIC: <<parameters.channel_topic>>
+            name: Report Build Success
+            command: |
+              MSG_PATH=.ms_teams_success_message
+              export MESSAGE=`cat .keybase_message`
+              node /app/out/main.js
+            when: on_success
+  - run:
+    environment:
+      KB_USERNAME: <<parameters.kb_username>>
+      KB_PAPERKEY: <<parameters.kb_paperkey>>
+      CHANNEL_NAME: <<parameters.team_name>>
+      CHANNEL_TOPIC: <<parameters.channel_topic>>
+    name: Report Build Failure
+    command: |
+      export MESSAGE=`cat .keybase_message`
+      node /app/out/main.js
+    when: on_fail

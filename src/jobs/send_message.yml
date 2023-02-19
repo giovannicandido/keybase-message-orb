@@ -1,0 +1,33 @@
+description: >
+  Send a message to keybase team channel
+# What will this job do?
+
+executor: default
+
+parameters:
+  kb_username:
+    type: string
+    description: "Username of the bot to authenticate"
+  kb_paperkey:
+    type: string
+    description: "Paper key to authenticate"
+  team_name:
+    type: string
+    description: "Team to send notification"
+  channel_topic: 
+    type: string
+    descrption: "Channel of the team to send notification"
+  message:
+    type: string
+    description: "Message to send to the keybase"
+steps:
+  - run:
+    environment:
+      KB_USERNAME: <<parameters.kb_username>>
+      KB_PAPERKEY: <<parameters.kb_paperkey>>
+      CHANNEL_NAME: <<parameters.team_name>>
+      CHANNEL_TOPIC: <<parameters.channel_topic>>
+      MESSAGE: <<parameters.message>>
+    name: Sending Message
+    command: |
+      node /app/out/main.js
