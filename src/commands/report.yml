@@ -29,7 +29,8 @@ steps:
         CHANNEL_NAME: <<parameters.team_name>>
         CHANNEL_TOPIC: <<parameters.channel_topic>>
         CUSTOM_MESSAGE: <<parameters.message>>
-      name: Prepare message
+      name: Prepare message template
+      when: always
       command: ../scripts/build_template.sh
   - unless:
       condition: << parameters.only_on_fail >>
