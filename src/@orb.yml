@@ -2,6 +2,9 @@ version: 2.1
 
 description: >
   This orbs sends notifications to a keybase.io team and channel
+  This could be useful for automated build pipeline notification
+  The image assume you have a team configured, and you created a bot.
+  For instructions check the source code REAME.md
 
 display:
   home_url: "https://github.com/giovannicandido/keybase-message-orb"
