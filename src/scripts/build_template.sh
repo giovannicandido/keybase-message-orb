@@ -10,7 +10,7 @@ else
     fail
 fi
 
-KEYBASE_MESSAGE_TEMPLATE=$(cat \<<END_HEREDOC
+KEYBASE_MESSAGE_TEMPLATE=$(cat \<<<END_HEREDOC
     CircleCI Build Notification
     "## __build_status__ "$CIRCLE_PROJECT_REPONAME" [#${CIRCLE_BUILD_NUM}]\("$CIRCLE_BUILD_URL"\)"
     Job: [${CIRCLE_JOB}]\("$CIRCLE_BUILD_URL"\)
