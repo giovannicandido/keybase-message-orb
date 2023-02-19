@@ -9,9 +9,8 @@ else
     >&2 echo unknown version control system: "$CIRCLE_REPOSITORY_URL"
     fail
 fi
-# Note that the "\<<" in the heredoc declaration is escaped from
-# CircleCI's parameters syntax.
-KEYBASE_MESSAGE_TEMPLATE=$(cat \\<<END_HEREDOC
+
+KEYBASE_MESSAGE_TEMPLATE=$(cat \<<END_HEREDOC
     CircleCI Build Notification
     "## __build_status__ "$CIRCLE_PROJECT_REPONAME" [#${CIRCLE_BUILD_NUM}]\("$CIRCLE_BUILD_URL"\)"
     Job: [${CIRCLE_JOB}]\("$CIRCLE_BUILD_URL"\)
