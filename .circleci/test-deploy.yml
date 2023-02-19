@@ -27,6 +27,8 @@ workflows:
       - command-tests:
           filters: *filters
       - keybase-message-orb/send-message:
+          kb_username: $KB_USERNAME
+          kb_paperkey: $KB_PAPERKEY
           team_name: kugelbit
           channel_topic: random
           only_on_fail: false
@@ -35,6 +37,8 @@ workflows:
           context:
             - Keybase
       - keybase-message-orb/report:
+          kb_username: $KB_USERNAME
+          kb_paperkey: $KB_PAPERKEY
           team_name: kugelbit
           channel_topic: random
           only_on_fail: false

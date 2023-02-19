@@ -2,11 +2,11 @@ description: >
   This command send a report of the build to keybase
 executor: default
 parameters:
-  KB_USERNAME:
-    type: env_var_name
+  kb_username:
+    type: string
     description: "Username of the bot to authenticate"
-  KB_PAPERKEY:
-    type: env_var_name
+  kb_paperkey:
+    type: string
     description: "Paper key to authenticate"
   team_name:
     type: string
@@ -25,6 +25,8 @@ parameters:
 steps:
   - run:
       environment:
+        KB_USERNAME: <<parameters.kb_username>>
+        KB_PAPERKEY: <<parameters.kb_paperkey>>
         CHANNEL_NAME: <<parameters.team_name>>
         CHANNEL_TOPIC: <<parameters.channel_topic>>
         CUSTOM_MESSAGE: <<parameters.message>>
@@ -36,6 +38,8 @@ steps:
       steps:
         - run:
             environment:
+              KB_USERNAME: <<parameters.kb_username>>
+              KB_PAPERKEY: <<parameters.kb_paperkey>>
               CHANNEL_NAME: <<parameters.team_name>>
               CHANNEL_TOPIC: <<parameters.channel_topic>>
             name: Report Build Success
