@@ -43,7 +43,6 @@ steps:
               CHANNEL_TOPIC: <<parameters.channel_topic>>
             name: Report Build Success
             command: |
-              MSG_PATH=.ms_teams_success_message
               export MESSAGE=`cat .keybase_message`
               node /app/out/main.js
             when: on_success
