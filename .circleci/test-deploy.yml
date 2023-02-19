@@ -19,6 +19,18 @@ jobs:
       - run:
           name: dummy test
           command: echo 'dummy'
+  test-with-image-directly:
+    docker:
+      - image: ghcr.io/giovannicandido/kugelbit-message-bot:main
+    resource_class: small
+    steps:
+      - run:
+          environment:
+            CHANNEL_NAME: kugelbit
+            CHANNEL_TOPIC: random
+            MESSAGE: "automated deploy test in circleci (please ignore)"
+          name: 'Run from image directly'
+          command: node /app/out/main.js
       
 workflows:
   test-deploy:
@@ -40,6 +52,9 @@ workflows:
           only_on_fail: false
           message: "automated deploy test in circleci (please ignore)"
           filters: *filters
+          context:
+            - Keybase
+      - test-with-image-directly:
           context:
             - Keybase
       - orb-tools/pack:
