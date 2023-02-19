@@ -1,7 +1,7 @@
 description: >
   This is the default executor for the org, do not change it
 docker:
-  - image: 'ghcr.io/giovannicandido/kugelbit-message-bot:main:<<parameters.tag>>'
+  - image: ghcr.io/giovannicandido/kugelbit-message-bot:main:<<parameters.tag>>
 parameters:
   tag:
     default: main
