@@ -16,7 +16,7 @@ parameters:
   on_fail:
     type: boolean
     description: "Whether to send notification only after a failure"
-    default: "true"
+    default: true
   message:
     type: string
     description: "Message to send to the keybase"
