@@ -14,7 +14,7 @@ parameters:
   team_name:
     type: string
     description: "Team to send notification"
-  channel_topic: 
+  channel_topic:
     type: string
     descrption: "Channel of the team to send notification"
   message:
