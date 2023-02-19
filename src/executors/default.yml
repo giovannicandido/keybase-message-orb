@@ -3,9 +3,22 @@ description: >
 docker:
   - image: ghcr.io/giovannicandido/kugelbit-message-bot:<<parameters.tag>>
 parameters:
+  resource_class:
+    default: small
+    description: Configure the executor resource class
+    enum:
+        - small
+        - medium
+        - medium+
+        - large
+        - xlarge
+        - 2xlarge
+        - 2xlarge+
+    type: enum
   tag:
     default: main
     description: >
       Pick a specific ghcr.io/giovannicandido/kugelbit-message-bot image variant:
       https://github.com/giovannicandido/kugelbit-message-bot/pkgs/container/kugelbit-message-bot
     type: string
+resource_class: << parameters.resource_class >>
