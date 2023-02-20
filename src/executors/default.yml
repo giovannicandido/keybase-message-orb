@@ -1,7 +1,7 @@
 description: >
   This is the default executor for the org, do not change it
 docker:
-  - image: keybaseio/client:<<parameters.tag>>
+  - image: ghcr.io/giovannicandido/kugelbit-message-bot:<<parameters.tag>>
 parameters:
   resource_class:
     default: medium
@@ -16,7 +16,7 @@ parameters:
         - 2xlarge+
     type: enum
   tag:
-    default: stable-slim
+    default: main
     description: >
       Pick a specific ghcr.io/giovannicandido/kugelbit-message-bot image variant:
       https://github.com/giovannicandido/kugelbit-message-bot/pkgs/container/kugelbit-message-bot
