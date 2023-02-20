@@ -1,4 +1,4 @@
-sed -i's/__build_status__/SUCCESS/' -i 's/__theme_color__/14a603/' .keybase_message
+sed -e 's/__build_status__/SUCCESS/g' -e 's/__theme_color__/14a603/g' -i .keybase_message
 export MESSAGE=`cat .keybase_message`
 echo "sending message: "
 echo ${MESSAGE}
