@@ -7,7 +7,7 @@ usage:
   workflows:
     send-report:
       jobs:
-        - keybase-message/message:
+        - keybase-message/send-message:
             team_name: test
             channel_topic: test
             only_on_fail: false
