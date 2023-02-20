@@ -31,13 +31,13 @@ steps:
           command: <<include(scripts/build_message_api.sh)>>
           when: on_sucess
         - run:
-          environment:
-            CHANNEL_NAME: <<parameters.team_name>>
-            CHANNEL_TOPIC: <<parameters.channel_topic>>
-            CUSTOM_MESSAGE: <<parameters.message>>
-          name: Sending Message
-          command: <<include(scripts/send_message_api.sh)>>
-          when: on_sucess
+            environment:
+              CHANNEL_NAME: <<parameters.team_name>>
+              CHANNEL_TOPIC: <<parameters.channel_topic>>
+              CUSTOM_MESSAGE: <<parameters.message>>
+            name: Sending Message
+            command: <<include(scripts/send_message_api.sh)>>
+            when: on_sucess
   - run:
       environment:
         CHANNEL_NAME: <<parameters.team_name>>
