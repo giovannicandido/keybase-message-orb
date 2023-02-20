@@ -1,0 +1,16 @@
+description: >
+  Sending report message to keybase including build information
+usage:
+  version: 2.1
+  orbs:
+    keybase-message: giovannicandido/keybase-message-orb@0.1
+  workflows:
+    send-report:
+      jobs:
+        - keybase-message/report:
+            team_name: test
+            channel_topic: test
+            only_on_fail: false
+            message: message
+            context:
+              - Keybase

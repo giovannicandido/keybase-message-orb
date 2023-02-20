@@ -16,13 +16,47 @@ jobs:
     steps:
       - checkout
       # Run your orb's commands to validate them.
-      - keybase-message-orb/greet
+      - run:
+          name: dummy test
+          command: echo 'dummy'
+  test-with-image-directly:
+    docker:
+      - image: ghcr.io/giovannicandido/kugelbit-message-bot:main
+    resource_class: small
+    steps:
+      - run:
+          environment:
+            CHANNEL_NAME: kugelbit
+            CHANNEL_TOPIC: random
+            MESSAGE: "automated deploy test in circleci direct image (please ignore)"
+          name: 'Run from image directly'
+          command: node /app/out/main.js
+      
 workflows:
   test-deploy:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       - command-tests:
           filters: *filters
+      - keybase-message-orb/send-message:
+          team_name: kugelbit
+          channel_topic: random
+          only_on_fail: false
+          message: "automated deploy test in circleci (please ignore)"
+          filters: *filters
+          context:
+            - Keybase
+      - keybase-message-orb/report:
+          team_name: kugelbit
+          channel_topic: random
+          only_on_fail: false
+          message: "automated deploy test in circleci (please ignore)"
+          filters: *filters
+          context:
+            - Keybase
+      - test-with-image-directly:
+          context:
+            - Keybase
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
@@ -32,6 +66,8 @@ workflows:
           requires:
             - orb-tools/pack
             - command-tests
+            - keybase-message-orb/send-message
+            - keybase-message-orb/report
           context: orb-publishing
           filters:
             branches:

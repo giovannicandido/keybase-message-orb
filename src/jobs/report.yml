@@ -1,0 +1,44 @@
+description: >
+  This command send a report of the build to keybase
+executor: default
+parameters:
+  team_name:
+    type: string
+    description: "Team to send notification"
+  channel_topic:
+    type: string
+    description: "Channel of the team to send notification"
+  only_on_fail:
+    type: boolean
+    description: "Whether to send notification only after a failure"
+    default: true
+  message:
+    type: string
+    description: "Message to send to the keybase"
+    default: ""
+steps:
+  - run:
+      environment:
+        CHANNEL_NAME: <<parameters.team_name>>
+        CHANNEL_TOPIC: <<parameters.channel_topic>>
+        CUSTOM_MESSAGE: <<parameters.message>>
+      name: Prepare message template
+      when: always
+      command: <<include(scripts/build_template.sh)>>
+  - unless:
+      condition: << parameters.only_on_fail >>
+      steps:
+        - run:
+            environment:
+              CHANNEL_NAME: <<parameters.team_name>>
+              CHANNEL_TOPIC: <<parameters.channel_topic>>
+            name: Report Build Success
+            command: <<include(scripts/send_sucess.sh)>>
+            when: on_success
+  - run:
+      environment:
+        CHANNEL_NAME: <<parameters.team_name>>
+        CHANNEL_TOPIC: <<parameters.channel_topic>>
+      name: Report Build Failure
+      command: <<include(scripts/send_failure.sh)>>
+      when: on_fail

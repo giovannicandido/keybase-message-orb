@@ -1,0 +1,40 @@
+description: >
+  Send a message to keybase team channel
+# What will this job do?
+
+executor: default
+
+parameters:
+  team_name:
+    type: string
+    description: "Team to send notification"
+  channel_topic:
+    type: string
+    description: "Channel of the team to send notification"
+  message:
+    type: string
+    description: "Message to send to the keybase"
+  only_on_fail:
+    type: boolean
+    description: "Whether to send notification only after a failure"
+    default: true
+steps:
+  - unless:
+      condition: << parameters.only_on_fail >>
+      steps:
+        - run:
+            environment:
+              CHANNEL_NAME: <<parameters.team_name>>
+              CHANNEL_TOPIC: <<parameters.channel_topic>>
+              MESSAGE: <<parameters.message>>
+            name: Sending Message
+            command: node /app/out/main.js
+            when: on_success
+  - run:
+      environment:
+        CHANNEL_NAME: <<parameters.team_name>>
+        CHANNEL_TOPIC: <<parameters.channel_topic>>
+        MESSAGE: <<parameters.message>>
+      name: Sending Message
+      command: node /app/out/main.js
+      when: on_fail
