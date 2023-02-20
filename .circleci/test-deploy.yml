@@ -28,7 +28,7 @@ jobs:
           environment:
             CHANNEL_NAME: kugelbit
             CHANNEL_TOPIC: random
-            MESSAGE: "automated deploy test in circleci (please ignore)"
+            MESSAGE: "automated deploy test in circleci direct image (please ignore)"
           name: 'Run from image directly'
           command: node /app/out/main.js
       

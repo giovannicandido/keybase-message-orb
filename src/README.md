@@ -1,3 +1,38 @@
+# Keybase Message Org
+
+Send messages to keybase.io team channels.
+
+This orb offers two jobs:
+
+* send-message: sends a unformated message
+* report: gets environment information like commit author and message and send to keybase
+
+Both have the same options:
+
+* team_name: the name of the team in keybase
+* channel_topic: channel topic to send
+* only_on_fail: if true will send the message only on fail builds
+* message: the custom message to send
+
+Not that this orb needs a context with the variables:
+
+* KEYBASE_USERNAME: the bot username
+* KEYBASE_PAPERKEY: the bot paper key to authentiation
+
+## How to create your bot keys
+
+To create a bot use the following:
+
+```
+keybase bot token create > /tmp/bot_token
+keybase --standalone --home=/tmp/bot bot signup -u bot_name_here -t $(cat /tmp/bot_token) > paper-key
+```
+You can test using:
+
+```
+docker run --rm -it -e KEYBASE_USERNAME=bot_username -e KEYBASE_PAPERKEY="$(cat paper-key)" -e CHANNEL_NAME="team" -e CHANNEL_TOPIC=buildstatus -e MESSAGE="this is another test message sended from bot" ghcr.io/giovannicandio/kugelbit-message-bot
+```
+
 # Orb Source
 
 Orbs are shipped as individual `orb.yml` files, however, to make development easier, it is possible to author an orb in _unpacked_ form, which can be _packed_ with the CircleCI CLI and published.

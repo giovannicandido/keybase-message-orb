@@ -1,5 +1,5 @@
 description: >
-  Sending report message to keybase
+  Sending an unformated message to keybase team
 usage:
   version: 2.1
   orbs:
@@ -7,10 +7,10 @@ usage:
   workflows:
     send-report:
       jobs:
-        - keybase-message/report:
-            kb_username: test
-            kb_paperkey: test
+        - keybase-message/message:
             team_name: test
             channel_topic: test
             only_on_fail: false
             message: message
+            context:
+              - Keybase
