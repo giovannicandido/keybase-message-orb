@@ -36,10 +36,7 @@ steps:
             CHANNEL_TOPIC: <<parameters.channel_topic>>
             CUSTOM_MESSAGE: <<parameters.message>>
           name: Sending Message
-          command: |
-            export KEYBASE_UERNAME=${KB_USERNAME}
-            export KEYBASE_PAPERKEY=${KB_PAPERKEY}
-            keybase chat api -i message.json
+          command: <<include(scripts/send_message_api.sh)>>
           when: on_sucess
   - run:
       environment:
@@ -55,8 +52,5 @@ steps:
         CHANNEL_TOPIC: <<parameters.channel_topic>>
         CUSTOM_MESSAGE: <<parameters.message>>
       name: Sending Message
-      command: |
-        export KEYBASE_UERNAME=${KB_USERNAME}
-        export KEYBASE_PAPERKEY=${KB_PAPERKEY}
-        keybase chat api -i message.json
+      command: <<include(scripts/send_message_api.sh)>>
       when: on_fail
