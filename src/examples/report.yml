@@ -3,7 +3,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    keybase-message: giovannicandido/keybase-message-orb@1.0.0
+    keybase-message: giovannicandido/keybase-message-orb@0.1
   workflows:
     send-report:
       jobs:
