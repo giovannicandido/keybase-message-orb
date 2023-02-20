@@ -31,7 +31,7 @@ steps:
           command: <<include(scripts/build_message_api.sh)>>
           when: on_sucess
         - run:
-            environment:
+          environment:
             CHANNEL_NAME: <<parameters.team_name>>
             CHANNEL_TOPIC: <<parameters.channel_topic>>
             CUSTOM_MESSAGE: <<parameters.message>>
