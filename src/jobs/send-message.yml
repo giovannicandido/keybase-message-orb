@@ -28,7 +28,7 @@ steps:
               CHANNEL_TOPIC: <<parameters.channel_topic>>
               MESSAGE: <<parameters.message>>
             name: Sending Message
-            command: node /app/out/main.js 
+            command: node /app/out/main.js
             when: on_success
   - run:
       environment:
@@ -36,5 +36,5 @@ steps:
         CHANNEL_TOPIC: <<parameters.channel_topic>>
         MESSAGE: <<parameters.message>>
       name: Sending Message
-      command: node /app/out/main.js 
+      command: node /app/out/main.js
       when: on_fail
