@@ -23,20 +23,40 @@ steps:
       condition: << parameters.only_on_fail >>
       steps:
         - run:
+          environment:
+            CHANNEL_NAME: <<parameters.team_name>>
+            CHANNEL_TOPIC: <<parameters.channel_topic>>
+            CUSTOM_MESSAGE: <<parameters.message>>
+          name: Message Build
+          command: <<include(scripts/build_message_api.sh)>>
+          when: on_sucess
+        - run:
             environment:
-              CHANNEL_NAME: <<parameters.team_name>>
-              CHANNEL_TOPIC: <<parameters.channel_topic>>
-              MESSAGE: <<parameters.message>>
-            name: Sending Message
-            command: |
-              node /app/out/main.js
-            when: on_success
+            CHANNEL_NAME: <<parameters.team_name>>
+            CHANNEL_TOPIC: <<parameters.channel_topic>>
+            CUSTOM_MESSAGE: <<parameters.message>>
+          name: Sending Message
+          command: |
+            export KEYBASE_UERNAME=${KB_USERNAME}
+            export KEYBASE_PAPERKEY=${KB_PAPERKEY}
+            keybase chat api -i message.json
+          when: on_sucess
   - run:
       environment:
         CHANNEL_NAME: <<parameters.team_name>>
         CHANNEL_TOPIC: <<parameters.channel_topic>>
-        MESSAGE: <<parameters.message>>
+        CUSTOM_MESSAGE: <<parameters.message>>
+      name: Message Build
+      command: <<include(scripts/build_message_api.sh)>>
+      when: on_fail
+  - run:
+      environment:
+        CHANNEL_NAME: <<parameters.team_name>>
+        CHANNEL_TOPIC: <<parameters.channel_topic>>
+        CUSTOM_MESSAGE: <<parameters.message>>
       name: Sending Message
       command: |
-        node /app/out/main.js
+        export KEYBASE_UERNAME=${KB_USERNAME}
+        export KEYBASE_PAPERKEY=${KB_PAPERKEY}
+        keybase chat api -i message.json
       when: on_fail
